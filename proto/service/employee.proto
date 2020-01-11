@@ -1,0 +1,83 @@
+syntax = "proto3";
+
+package service;
+
+option go_package = "employeepb";
+
+import "google/api/annotations.proto";
+
+
+service EmployeeService {
+    rpc CreateEmployee(CreateEmployeeReq) returns (CreateEmployeeRes){
+        option(google.api.http) = {
+            post: "/employees"
+            body: "*"
+        };
+    }
+    rpc ReadEmployee(ReadEmployeeReq) returns (ReadEmployeeRes){
+        option(google.api.http) = {
+            get: "/employees/{id}"            
+        };
+    }
+    rpc UpdateEmployee(UpdateEmployeeReq) returns (UpdateEmployeeRes){
+        option(google.api.http) = {
+            put: "/employees"
+            body: "*"
+        };
+    }
+    rpc DeleteEmployee(DeleteEmployeeReq) returns (DeleteEmployeeRes){
+        option(google.api.http) = {
+            delete: "/employees/{id}"
+        };
+    }
+    rpc ListEmployees(ListEmployeeReq) returns (stream ListEmployeeRes){
+        option(google.api.http) = {
+            get: "/employees"
+        };
+    }
+}
+
+message CreateEmployeeReq {
+    Employee employee = 1;
+}
+
+message CreateEmployeeRes {
+    Employee employee = 1;
+}
+
+message ReadEmployeeReq {
+    string id = 1;
+}
+
+message ReadEmployeeRes {
+    Employee employee = 1;
+}
+
+message UpdateEmployeeReq {
+    Employee employee = 1;
+}
+
+message UpdateEmployeeRes {
+    Employee employee = 1;
+}
+
+message DeleteEmployeeReq {
+    string id = 1;
+}
+
+message DeleteEmployeeRes {
+    bool success = 1;
+}
+
+message ListEmployeeReq {}
+
+message ListEmployeeRes {
+    Employee employee = 1;
+}
+
+message Employee {
+	string e_id  = 1;
+    string name = 2;
+    string lname = 3;
+    string id_u = 4;
+}

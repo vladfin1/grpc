@@ -1,0 +1,252 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "employee.proto",
+    "version": "version not set"
+  },
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/employees": {
+      "get": {
+        "operationId": "ListEmployees",
+        "responses": {
+          "200": {
+            "description": "A successful response.(streaming responses)",
+            "schema": {
+              "$ref": "#/x-stream-definitions/serviceListEmployeeRes"
+            }
+          }
+        },
+        "tags": [
+          "EmployeeService"
+        ]
+      },
+      "post": {
+        "operationId": "CreateEmployee",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/serviceCreateEmployeeRes"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/serviceCreateEmployeeReq"
+            }
+          }
+        ],
+        "tags": [
+          "EmployeeService"
+        ]
+      },
+      "put": {
+        "operationId": "UpdateEmployee",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/serviceUpdateEmployeeRes"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/serviceUpdateEmployeeReq"
+            }
+          }
+        ],
+        "tags": [
+          "EmployeeService"
+        ]
+      }
+    },
+    "/employees/{id}": {
+      "get": {
+        "operationId": "ReadEmployee",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/serviceReadEmployeeRes"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "EmployeeService"
+        ]
+      },
+      "delete": {
+        "operationId": "DeleteEmployee",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/serviceDeleteEmployeeRes"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "EmployeeService"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "protobufAny": {
+      "type": "object",
+      "properties": {
+        "type_url": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string",
+          "format": "byte"
+        }
+      }
+    },
+    "runtimeStreamError": {
+      "type": "object",
+      "properties": {
+        "grpc_code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "http_code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "http_status": {
+          "type": "string"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/protobufAny"
+          }
+        }
+      }
+    },
+    "serviceCreateEmployeeReq": {
+      "type": "object",
+      "properties": {
+        "employee": {
+          "$ref": "#/definitions/serviceEmployee"
+        }
+      }
+    },
+    "serviceCreateEmployeeRes": {
+      "type": "object",
+      "properties": {
+        "employee": {
+          "$ref": "#/definitions/serviceEmployee"
+        }
+      }
+    },
+    "serviceDeleteEmployeeRes": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean",
+          "format": "boolean"
+        }
+      }
+    },
+    "serviceEmployee": {
+      "type": "object",
+      "properties": {
+        "e_id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "lname": {
+          "type": "string"
+        },
+        "id_u": {
+          "type": "string"
+        }
+      }
+    },
+    "serviceListEmployeeRes": {
+      "type": "object",
+      "properties": {
+        "employee": {
+          "$ref": "#/definitions/serviceEmployee"
+        }
+      }
+    },
+    "serviceReadEmployeeRes": {
+      "type": "object",
+      "properties": {
+        "employee": {
+          "$ref": "#/definitions/serviceEmployee"
+        }
+      }
+    },
+    "serviceUpdateEmployeeReq": {
+      "type": "object",
+      "properties": {
+        "employee": {
+          "$ref": "#/definitions/serviceEmployee"
+        }
+      }
+    },
+    "serviceUpdateEmployeeRes": {
+      "type": "object",
+      "properties": {
+        "employee": {
+          "$ref": "#/definitions/serviceEmployee"
+        }
+      }
+    }
+  },
+  "x-stream-definitions": {
+    "serviceListEmployeeRes": {
+      "type": "object",
+      "properties": {
+        "result": {
+          "$ref": "#/definitions/serviceListEmployeeRes"
+        },
+        "error": {
+          "$ref": "#/definitions/runtimeStreamError"
+        }
+      },
+      "title": "Stream result of serviceListEmployeeRes"
+    }
+  }
+}

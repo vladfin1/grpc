@@ -1,0 +1,81 @@
+syntax = "proto3";
+
+package service;
+
+option go_package = "unitpb";
+
+import "google/api/annotations.proto";
+
+
+service UnitService {
+    rpc CreateUnit(CreateUnitReq) returns (CreateUnitRes){
+        option(google.api.http) = {
+            post: "/units"
+            body: "*"
+        };
+    }
+    rpc ReadUnit(ReadUnitReq) returns (ReadUnitRes){
+        option(google.api.http) = {
+            get: "/units/{id}"            
+        };
+    }
+    rpc UpdateUnit(UpdateUnitReq) returns (UpdateUnitRes){
+        option(google.api.http) = {
+            put: "/units"
+            body: "*"
+        };
+    }
+    rpc DeleteUnit(DeleteUnitReq) returns (DeleteUnitRes){
+        option(google.api.http) = {
+            delete: "/units/{id}"
+        };
+    }
+    rpc ListUnits(ListUnitReq) returns (stream ListUnitRes){
+        option(google.api.http) = {
+            get: "/units"
+        };
+    }
+}
+
+message CreateUnitReq {
+    Unit unit = 1;
+}
+
+message CreateUnitRes {
+    Unit unit = 1;
+}
+
+message ReadUnitReq {
+    string id = 1;
+}
+
+message ReadUnitRes {
+    Unit unit = 1;
+}
+
+message UpdateUnitReq {
+    Unit unit = 1;
+}
+
+message UpdateUnitRes {
+    Unit unit = 1;
+}
+
+message DeleteUnitReq {
+    string id = 1;
+}
+
+message DeleteUnitRes {
+    bool success = 1;
+}
+
+message ListUnitReq {}
+
+message ListUnitRes {
+    Unit unit = 1;
+}
+
+message Unit {
+	string u_id  = 1;
+	string title = 2;
+}
